@@ -24,13 +24,30 @@ const myMap = new Map([
     [23, "Woran erkennt man ein Polnischen Furz? Er raubt dir denn Atem!"],
 ]);
 
-function getRandomJoke() {
-    const randomKey = Math.floor(Math.random() * 23) + 1;
-    document.getElementById('jokeContainer').textContent = myMap.get(randomKey);
-}
+//function getRandomJoke() {
+//    const randomKey = Math.floor(Math.random() * 23) + 1;
+//    document.getElementById('jokeContainer').textContent = myMap.get(randomKey);
+//}
 
-document.getElementById('newJokeButton').addEventListener('click', () => {
-    getRandomJoke();
-});
+//document.getElementById('newJokeButton').addEventListener('click', () => {
+//    getRandomJoke();
+//});
 
-getRandomJoke();
+//getRandomJoke();
+let currentIndex = 1; // Startindex für den ersten Witz
+        const totalJokes = myMap.size;
+
+        function showJoke(index) {
+            const joke = myMap.get(index);
+            document.getElementById('jokeContainer').textContent = joke;
+        }
+
+        function getNextJoke() {
+            showJoke(currentIndex);
+            currentIndex = (currentIndex % totalJokes) + 1; // Update index and loop back to 1 if necessary
+        }
+
+        document.getElementById('newJokeButton').addEventListener('click', getNextJoke);
+
+        // Show the first joke initially
+        getNextJoke();
